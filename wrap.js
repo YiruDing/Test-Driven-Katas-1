@@ -1,24 +1,23 @@
 const wrap = (str, colNum) => {
-  const words = str.split(" ");
-  returnStr = "";
-  lineCount = 0;
+  if (str.length <= colNum) return str;
 
-  for (let i = 0; i < words.length; i++) {
-    lineCount += words[i].length;
-    if (lineCount <= colNum) {
-      returnStr = returnStr + words[i] + " ";
-      lineCount += 1;
+  const words = str.split(" ");
+  returnStr = words[0];
+  charCount = words[0].length;
+  wordCount = 1;
+
+  for (let i = 1; i < words.length; i++) {
+    if (charCount + words[i].length + 1 <= colNum) {
+      returnStr = returnStr + " " + words[i];
+      wordCount += 1;
+      charCount += words[i].length + 1;
     } else {
-      returnStr = returnStr + "\n" + words[i] + " ";
-      lineCount = words[i].length + 1;
+      returnStr = returnStr + "\n" + words[i];
+      charCount = words[i].length;
+      wordCount = 1;
     }
   }
   return returnStr;
 };
 
-console.log(
-  wrap(
-    "Lorem ipsum dolor sit eu amet, elit na magna sem amet nulla vel purus ac ligula.",
-    20
-  )
-);
+module.exports = wrap;
